@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for api-my-web on 2025-05-12T01:54:29Z
+# fly.toml app configuration file generated for api-my-web on 2025-05-12T02:02:56Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'api-my-web'
-primary_region = 'cdg'
+primary_region = 'hkg'
 
 [build]
 
