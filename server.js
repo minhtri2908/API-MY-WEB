@@ -28,4 +28,7 @@ const skillRoutes = require("./routes/skillRoutes");
 app.use("/api/skills", skillRoutes);
 
 const PORT = process.env.PORT || 5000;
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
