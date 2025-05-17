@@ -14,16 +14,16 @@ router.get('/', async (req, res) => {
 });
 
 // POST a new skill category
-router.post('/', async (req, res) => {
-  const { category, items } = req.body;
-  const skill = new Skill({ category, items });
+// router.post('/', async (req, res) => {
+//   const { category, items } = req.body;
+//   const skill = new Skill({ category, items });
 
-  try {
-    const newSkill = await skill.save();
-    res.status(201).json(newSkill);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+//   try {
+//     const newSkill = await skill.save();
+//     res.status(201).json(newSkill);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// });
 
 module.exports = router;

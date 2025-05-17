@@ -9,10 +9,10 @@ router.get('/', async (req, res) => {
 });
 
 // (Optional) POST - Thêm dữ liệu
-router.post('/', async (req, res) => {
-  const newExp = new Experience(req.body);
-  await newExp.save();
-  res.status(201).json(newExp);
-});
+// router.post('/', async (req, res) => {
+//   const newExp = new Experience(req.body);
+//   await newExp.save();
+//   res.status(201).json(newExp);
+// });
 
 module.exports = router;
