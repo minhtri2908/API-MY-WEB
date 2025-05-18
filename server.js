@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-
+const cookieParser = require("cookie-parser");
+const adminRoutes = require("./routes/adminRoutes");
 const app = express();
 
 // Middlewares
@@ -18,6 +19,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 // Routes
+
+app.use(cookieParser());
+app.use("/api/admin", adminRoutes);
+
+
 const experienceRoutes = require("./routes/experienceRoutes");
 app.use("/api/experiences", experienceRoutes);
 
@@ -26,6 +32,9 @@ app.use("/api/educations", educationRoutes);
 
 const skillRoutes = require("./routes/skillRoutes");
 app.use("/api/skills", skillRoutes);
+
+const contactRoutes = require("./routes/contactRoutes");
+app.use("/api/contacts", contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.get("/", (req, res) => {
