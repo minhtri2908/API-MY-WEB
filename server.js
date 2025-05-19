@@ -7,7 +7,10 @@ const adminRoutes = require("./routes/adminRoutes");
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: "tri-pham-indol.vercel.app", 
+  credentials: true,              
+}));
 app.use(express.json());
 console.log(process.env.MONGO_URI);
 // MongoDB connection
