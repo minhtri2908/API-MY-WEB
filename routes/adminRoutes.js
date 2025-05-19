@@ -47,7 +47,12 @@ router.get("/check-auth", authenticateAdmin, (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  res.clearCookie("token").json({ message: "Logged out" });
+  res.clearCookie("token", {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "none",
+  path: "/",
+}).json({ message: "Logged out" });
 });
 
 module.exports = router;
