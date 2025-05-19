@@ -8,7 +8,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: "tri-pham-indol.vercel.app", 
+  origin: "https://tri-pham-indol.vercel.app/", 
   credentials: true,              
 }));
 app.use(express.json());
