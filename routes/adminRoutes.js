@@ -34,7 +34,6 @@ router.post("/login", async (req, res) => {
         secure: true,
         sameSite: "none",
         maxAge: 30 * 60 * 1000, // 30 phút
-        sameSite: "strict",
       })
       .json({ message: "Login successful" });
   } catch (err) {
