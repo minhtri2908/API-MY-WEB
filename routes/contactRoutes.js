@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Contact = require("../models/Contact");
 const authenticateAdmin = require("../middleware/authMiddleware");
+const { sendContactNotification } = require("../utils/mailer");
 // @route   POST /api/contacts
 // @desc    Save contact form data
 // @access  Public
@@ -16,8 +17,10 @@ router.post("/", async (req, res) => {
   try {
     const newContact = new Contact({ name, email, phone, details });
     await newContact.save();
-    res.status(201).json({ message: "Contact saved successfully." });
+    await sendContactNotification({ name, email, phone, details });
+    res.status(201).json({ message: "Contact saved and email sent." });
   } catch (error) {
+    console.error("Error saving contact or sending email:", error);
     res.status(500).json({ message: "Server error.", error });
   }
 });
