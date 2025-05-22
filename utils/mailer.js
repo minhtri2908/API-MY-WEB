@@ -1,8 +1,8 @@
-// utils/mailer.js
+
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail", // hoặc 'hotmail', hoặc config SMTP riêng
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -13,7 +13,7 @@ const sendContactNotification = async (contactData) => {
   const { name, email, phone, details } = contactData;
 
   const mailOptions = {
-    from: `"Liên hệ website" <${process.env.EMAIL_USER}>`,
+    from: `"Thông báo từ website của bạn" <${process.env.EMAIL_USER}>`,
     to: process.env.NOTIFY_EMAIL, // Email admin nhận thông báo
     subject: "📩 Có người vừa gửi liên hệ!",
     html: `
