@@ -30,4 +30,15 @@ router.get("/", authenticateAdmin, async (req, res) => {
   }
 });
 
+router.delete("/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const deletedContact = await Contact.findByIdAndDelete(req.params.id);
+    if (!deletedContact) {
+      return res.status(404).json({ message: "Contact not found." });
+    }
+    res.json({ message: "Contact deleted successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete contact.", error });
+  }
+});
 module.exports = router;
