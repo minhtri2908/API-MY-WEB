@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/Admin");
 const authenticateAdmin = require("../middleware/authMiddleware");
 const router = express.Router();
-
+const isProduction = process.env.NODE_ENV === "production";
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -30,9 +30,9 @@ router.post("/login", async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        secure: true,
-        sameSite: "none",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        path: "/",
         maxAge: 30 * 60 * 1000, // 30 phút
       })
       .json({ message: "Login successful" });
@@ -47,12 +47,14 @@ router.get("/check-auth", authenticateAdmin, (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  res.clearCookie("token", {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-  path: "/",
-}).json({ message: "Logged out" });
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      path: "/",
+    })
+    .json({ message: "Logged out" });
 });
 
 module.exports = router;
