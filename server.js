@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const adminRoutes = require("./routes/adminRoutes");
+
 const app = express();
 
 // Middlewares
@@ -35,10 +36,11 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 // Routes
+const pingRoute = require("./routes/ping")
+app.use("/api/ping",pingRoute);
 
 app.use(cookieParser());
 app.use("/api/admin", adminRoutes);
-
 
 const experienceRoutes = require("./routes/experienceRoutes");
 app.use("/api/experiences", experienceRoutes);
