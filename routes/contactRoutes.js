@@ -24,14 +24,30 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Server error.", error });
   }
 });
+// GET /api/contacts?page=1&limit=10
 router.get("/", authenticateAdmin, async (req, res) => {
   try {
-    const contacts = await Contact.find().sort({ createdAt: -1 });
-    res.json(contacts);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const totalContacts = await Contact.countDocuments();
+    const contacts = await Contact.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      contacts,
+      total: totalContacts,
+      page,
+      totalPages: Math.ceil(totalContacts / limit),
+    });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch contacts", error });
   }
 });
+
 
 router.delete("/:id", authenticateAdmin, async (req, res) => {
   try {
