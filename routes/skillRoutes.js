@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Skill = require('../models/Skill');
-
+const Skill = require("../models/Skill");
+const authenticateAdmin = require("../middleware/authMiddleware");
 
 // GET all skills
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const skills = await Skill.find();
     res.json(skills);
@@ -14,16 +14,16 @@ router.get('/', async (req, res) => {
 });
 
 // POST a new skill category
-// router.post('/', async (req, res) => {
-//   const { category, items } = req.body;
-//   const skill = new Skill({ category, items });
+router.post("/", authenticateAdmin, async (req, res) => {
+  const { category, items } = req.body;
+  const skill = new Skill({ category, items });
 
-//   try {
-//     const newSkill = await skill.save();
-//     res.status(201).json(newSkill);
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
+  try {
+    const newSkill = await skill.save();
+    res.status(201).json(newSkill);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 module.exports = router;

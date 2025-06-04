@@ -8,7 +8,10 @@ const adminSchema = new mongoose.Schema({
     default: "admin",
     enum: ["admin"],
   },
+  name: { type: String }, // Tên người dùng (hiển thị)
+  jobTitle: { type: String }, // Nghề nghiệp
+  about: { type: String }, // Đôi lời
+  cvLink: { type: String }, // Liên kết đến file CV
 });
 
 module.exports = mongoose.model("Admin", adminSchema);
-  
