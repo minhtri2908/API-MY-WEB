@@ -35,7 +35,7 @@ router.put("/:id", authenticateAdmin, async (req, res) => {
 
     res.json({
       message: "Cập nhật thành công",
-      data: updatedEdu,
+      education: updatedEdu,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

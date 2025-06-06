@@ -25,5 +25,25 @@ router.post("/", authenticateAdmin, async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+// PUT update a skill category by ID
+router.put("/:id", authenticateAdmin, async (req, res) => {
+  const { category, items } = req.body;
+
+  try {
+    const updatedSkill = await Skill.findByIdAndUpdate(
+      req.params.id,
+      { category, items },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedSkill) {
+      return res.status(404).json({ message: "Skill category not found" });
+    }
+
+    res.json(updatedSkill);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 module.exports = router;
