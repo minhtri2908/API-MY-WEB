@@ -54,8 +54,13 @@ app.use("/api/skills", skillRoutes);
 const contactRoutes = require("./routes/contactRoutes");
 app.use("/api/contacts", contactRoutes);
 
+const imageRoutes = require("./routes/imageRoutes");
+app.use("/api/image", imageRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.get("/", (req, res) => {
   res.send("API is running!");
 });
+
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
